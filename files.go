@@ -111,6 +111,9 @@ func filesAsync(base string) chan string {
 				wg.Add(1)
 				go fn(filepath.Join(p, fi.Name()))
 			} else {
+				if matchre != nil && !matchre.MatchString(path) {
+					continue
+				}
 				n++
 				// This is pseudo handling because this is not atomic
 				if n > maxcount {
